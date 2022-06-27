@@ -1,6 +1,4 @@
 package pages;
-import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -16,8 +14,4 @@ public class DashBoardPage {
         String actualUrl = driver.getCurrentUrl();
         Assert.assertEquals(actualUrl, pageNameUrl);
     }
-
-
-
-
 }

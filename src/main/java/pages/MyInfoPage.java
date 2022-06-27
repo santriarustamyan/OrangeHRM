@@ -1,4 +1,5 @@
 package pages;
+import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -20,6 +21,21 @@ public class MyInfoPage {
     private final By userNickName = By.name("personal[txtEmpNickName]");
     private final By userMilitaryService = By.name("personal[txtMilitarySer]");
     private final By userSmoker = By.id("personal_chkSmokeFlag");
+    Faker faker = new Faker();
+    private String firstName = faker.name().firstName();
+    public String lastName = faker.name().lastName();
+    public String middleName = faker.name().nameWithMiddle();
+    public String employeeId = faker.idNumber().validSvSeSsn();
+    public String nickName = faker.name().username();
+//    public String driversLicenseNumber = faker.number().numberBetween( 100000000  ,100000000.);
+//    public String lastName = faker.name().lastName();
+
+
+
+//    String employeeId,String driversLicenseNumber, String sSNNumber,
+//    String otherId,String licenseExpiryDate,String sINNumber,
+//    String dateOfBirth,String nationality,String nickName,String militaryService,
+
     public enum Gender {
         MALE ,
         FEMALE
@@ -43,8 +59,6 @@ public class MyInfoPage {
         return By.cssSelector("#personal_cmbMarital > option:nth-child("+(status.ordinal() + 2)+")");
     }
     private final void userIsSmoker(Smoker smoker) {
-        System.out.println(Smoker.YES);
-        System.out.println(smoker);
         if (!driver.findElement(userSmoker).isSelected()  && smoker == Smoker.YES)
             driver.findElement(userSmoker).click();
         else if (driver.findElement(userSmoker).isSelected()  && smoker == Smoker.NO)
@@ -69,10 +83,9 @@ public class MyInfoPage {
         driver.findElement(userMilitaryService).clear();
     }
 
-    public void editInfoUser(String firstName, String lastName ,String middleName,
-                             String employeeId,String driversLicenseNumber, String sSNNumber,
+    public void editInfoUser(String employeeId,String driversLicenseNumber, String sSNNumber,
                              String otherId,String licenseExpiryDate,String sINNumber,
-                             String dateOfBirth,String nationality,String nickName,String militaryService,
+                             String dateOfBirth,String nationality,String militaryService,
                              Gender gender, MartialStatus status, Smoker smoker){
 
         driver.findElement(editAndSaveButton).click();
@@ -88,7 +101,6 @@ public class MyInfoPage {
         driver.findElement(userOtherId).sendKeys(otherId);
         driver.findElement(userLicenseExpiryDate).sendKeys(licenseExpiryDate);
         driver.findElement(userSINNumber).sendKeys(sINNumber);
-
 
         driver.findElement(userDateOfBirth).sendKeys(dateOfBirth);
         driver.findElement(  userGender(gender)).click();
