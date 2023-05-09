@@ -1,5 +1,6 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
 import org.openqa.selenium.WebDriver;
 import pages.*;
@@ -17,8 +18,10 @@ public class BaseTest {
 
     @BeforeSuite
     public void setUp(){
+        ChromeOptions co = new ChromeOptions();
+        co.addArguments("--remote-allow-origins=*");
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(co);
     }
 
     @BeforeClass
